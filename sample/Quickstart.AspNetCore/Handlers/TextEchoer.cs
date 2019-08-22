@@ -1,11 +1,11 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Telegram.Bot.Framework.Abstractions;
+using IBWT.Framework.Abstractions;
 using Telegram.Bot.Types;
 
 namespace Quickstart.AspNetCore.Handlers
 {
-    public class TextEchoer : IUpdateHandler
+    public class Texthandler : IUpdateHandler
     {
         public async Task HandleAsync(IUpdateContext context, UpdateDelegate next, CancellationToken cancellationToken)
         {

@@ -1,7 +1,7 @@
 ﻿using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
-using Telegram.Bot.Framework.Abstractions;
+using IBWT.Framework.Abstractions;
 using Telegram.Bot.Types;
 
 namespace Quickstart.AspNetCore.Handlers

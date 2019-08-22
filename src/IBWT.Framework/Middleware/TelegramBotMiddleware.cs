@@ -1,19 +1,16 @@
-﻿#if !NETFRAMEWORK
-
+﻿using System;
+using System.IO;
+using System.Threading.Tasks;
+using IBWT.Framework.Abstractions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
-using System;
-using System.IO;
-using System.Threading.Tasks;
-using IBWT.Framework.Abstractions;
 using Telegram.Bot.Types;
 
-namespace IBWT.Framework
+namespace IBWT.Framework.Middleware
 {
-    internal class TelegramBotMiddleware<TBot>
-        where TBot : BotBase
+    internal class TelegramBotMiddleware<TBot> where TBot : BotBase
     {
         private readonly RequestDelegate _next;
 
@@ -25,6 +22,8 @@ namespace IBWT.Framework
         /// Initializes an instance of middleware
         /// </summary>
         /// <param name="next">Instance of request delegate</param>
+
+        /// <param name="updateDelegate">Logger for this middleware</param>
         /// <param name="logger">Logger for this middleware</param>
         public TelegramBotMiddleware(
             RequestDelegate next,
@@ -51,7 +50,7 @@ namespace IBWT.Framework
             }
 
             string payload;
-            using (var reader = new StreamReader(context.Request.Body))
+            using(var reader = new StreamReader(context.Request.Body))
             {
                 payload = await reader.ReadToEndAsync()
                     .ConfigureAwait(false);
@@ -77,7 +76,7 @@ namespace IBWT.Framework
                 return;
             }
 
-            using (var scope = context.RequestServices.CreateScope())
+            using(var scope = context.RequestServices.CreateScope())
             {
                 var bot = scope.ServiceProvider.GetRequiredService<TBot>();
                 var updateContext = new UpdateContext(bot, update, scope.ServiceProvider);
@@ -102,5 +101,3 @@ namespace IBWT.Framework
         }
     }
 }
-
-#endif

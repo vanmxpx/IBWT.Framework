@@ -1,6 +1,8 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Telegram.Bot.Framework.Abstractions;
+using IBWT.Framework.Abstractions;
+using Telegram.Bot.Types.Enums;
+using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Quickstart.AspNetCore.Handlers
 {
@@ -13,10 +15,16 @@ namespace Quickstart.AspNetCore.Handlers
             CancellationToken cancellationToken
         )
         {
+            var msg = context.Update.Message;
             await context.Bot.Client.SendTextMessageAsync(
-                context.Update.Message.Chat,
-                "Hello, World!",
-                cancellationToken: cancellationToken
+                msg.Chat,
+                "*Hello, World!*",
+                ParseMode.Markdown,
+                replyToMessageId : msg.MessageId,
+                replyMarkup : new InlineKeyboardMarkup(
+                    InlineKeyboardButton.WithCallbackData("Tap to start", "Start")
+                ),
+                cancellationToken : cancellationToken
             );
 
             await next(context, cancellationToken);

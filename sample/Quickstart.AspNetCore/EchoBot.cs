@@ -1,11 +1,11 @@
 ﻿using Microsoft.Extensions.Options;
-using Telegram.Bot.Framework;
+using IBWT.Framework;
 
 namespace Quickstart.AspNetCore
 {
     public class EchoBot : BotBase
     {
-        public EchoBot(IOptions<BotOptions<EchoBot>> options)
+        public EchoBot(IOptions<BotOptions> options)
             : base(options.Value)
         {
         }

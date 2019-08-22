@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Logging;
-using Telegram.Bot.Framework.Abstractions;
+using IBWT.Framework.Abstractions;
 
 namespace Quickstart.AspNetCore.Handlers
 {
