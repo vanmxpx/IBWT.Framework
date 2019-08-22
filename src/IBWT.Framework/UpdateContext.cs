@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using Telegram.Bot.Framework.Abstractions;
+using IBWT.Framework.Abstractions;
 using Telegram.Bot.Types;
 
-namespace Telegram.Bot.Framework
+namespace IBWT.Framework
 {
     public class UpdateContext : IUpdateContext
     {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-namespace Telegram.Bot.Framework.Abstractions
+namespace IBWT.Framework.Abstractions
 {
     /// <summary>
     /// Base handler implementation for a command such as "/start"

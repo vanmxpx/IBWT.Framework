@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Telegram.Bot.Framework.Abstractions;
+using IBWT.Framework.Abstractions;
 
-namespace Telegram.Bot.Framework
+namespace IBWT.Framework
 {
     public class BotBuilder : IBotBuilder
     {

@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Telegram.Bot.Types;
 
-namespace Telegram.Bot.Framework.Abstractions
+namespace IBWT.Framework.Abstractions
 {
     public interface IUpdateContext
     {

@@ -1,11 +1,11 @@
 using System.Threading;
 using System.Threading.Tasks;
-using Telegram.Bot.Framework.Abstractions;
+using IBWT.Framework.Abstractions;
 using Telegram.Bot.Requests;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-namespace Telegram.Bot.Framework
+namespace IBWT.Framework
 {
     public class UpdatePollingManager<TBot> : IUpdatePollingManager<TBot>
              where TBot : IBot

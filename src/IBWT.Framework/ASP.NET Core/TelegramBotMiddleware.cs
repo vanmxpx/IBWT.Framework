@@ -7,10 +7,10 @@ using Newtonsoft.Json;
 using System;
 using System.IO;
 using System.Threading.Tasks;
-using Telegram.Bot.Framework.Abstractions;
+using IBWT.Framework.Abstractions;
 using Telegram.Bot.Types;
 
-namespace Telegram.Bot.Framework
+namespace IBWT.Framework
 {
     internal class TelegramBotMiddleware<TBot>
         where TBot : BotBase

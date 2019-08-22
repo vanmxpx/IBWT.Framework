@@ -1,7 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 
-namespace Telegram.Bot.Framework.Abstractions
+namespace IBWT.Framework.Abstractions
 {
     /// <summary>
     /// Processes an update

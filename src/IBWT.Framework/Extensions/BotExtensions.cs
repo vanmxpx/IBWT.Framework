@@ -1,11 +1,11 @@
 ﻿using System;
 using System.Linq;
 using System.Text.RegularExpressions;
-using Telegram.Bot.Framework.Abstractions;
+using IBWT.Framework.Abstractions;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-namespace Telegram.Bot.Framework
+namespace IBWT.Framework
 {
     public static class BotExtensions
     {

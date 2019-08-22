@@ -1,7 +1,7 @@
 ﻿using System;
-using Telegram.Bot.Framework.Abstractions;
+using IBWT.Framework.Abstractions;
 
-namespace Telegram.Bot.Framework
+namespace IBWT.Framework
 {
     public static class BotBuilderExtensions
     {

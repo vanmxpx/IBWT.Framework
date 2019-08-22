@@ -2,8 +2,8 @@
 
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
-using Telegram.Bot.Framework;
-using Telegram.Bot.Framework.Abstractions;
+using IBWT.Framework;
+using IBWT.Framework.Abstractions;
 
 namespace Microsoft.AspNetCore.Builder
 {

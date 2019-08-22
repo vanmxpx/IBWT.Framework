@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Telegram.Bot.Framework.Abstractions
+namespace IBWT.Framework.Abstractions
 {
     public interface IBotBuilder
     {

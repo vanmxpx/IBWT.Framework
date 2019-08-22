@@ -1,4 +1,4 @@
-﻿namespace Telegram.Bot.Framework.Abstractions
+﻿namespace IBWT.Framework.Abstractions
 {
     /// <summary>
     /// A wrapper around TelegramBot class. Used to make calls to the Bot API
