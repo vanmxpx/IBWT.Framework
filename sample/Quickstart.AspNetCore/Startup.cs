@@ -4,9 +4,12 @@ using IBWT.Framework.Abstractions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Builder;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Quickstart.AspNetCore.Configuration;
+using Quickstart.AspNetCore.Data.Entities;
+using Quickstart.AspNetCore.Data.Repository;
 using Quickstart.AspNetCore.Handlers;
 using Quickstart.AspNetCore.Services;
 
@@ -14,17 +17,42 @@ namespace Quickstart.AspNetCore
 {
     public class Startup
     {
+        private readonly IHostingEnvironment env;
+
         private IConfiguration Configuration { get; }
 
-        public Startup(IConfiguration configuration)
+        public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
             Configuration = configuration;
+            this.env = env;
         }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+            services.AddConfigurationProvider(Configuration);
+
+            services.AddScoped<IDataRepository<Order>, OrderRepository>();
+            services.AddScoped<IDataRepository<TGUser>, TGUserReposiroty>();
+
+            if (env.IsDevelopment())
+            {
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("LocalDatabase")));
+            }
+            else
+            {
+                services.AddHttpsRedirection(options =>
+                {
+                    options.RedirectStatusCode = StatusCodes.Status308PermanentRedirect;
+                    options.HttpsPort = 443;
+                });
+
+                services.AddDbContext<ApplicationDbContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("RemoteDatabase")));
+            }
+
             services.AddTransient<EchoBot>()
-                .Configure<BotOptions>(Configuration.GetSection("EchoBot"))
                 .AddScoped<Texthandler>()
                 .AddScoped<StartCommand>()
                 .AddScoped<UpdateLogger>()
@@ -33,24 +61,25 @@ namespace Quickstart.AspNetCore
                 .AddScoped<ExceptionHandler>()
                 .AddScoped<UpdateMembersList>()
                 .AddScoped<CallbackQueryHandler>();
+
             services.AddScoped<IWeatherService, WeatherService>();
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
+            app.UseHttpsRedirection();
+            // app.UseStaticFiles();
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
-
-                // get bot updates from Telegram via long-polling approach during development
-                // this will disable Telegram webhooks
+                // app.UseMvc();
                 app.UseTelegramBotLongPolling<EchoBot>(ConfigureBot(), startAfter : TimeSpan.FromSeconds(2));
             }
             else
             {
-                // use Telegram bot webhook middleware in higher environments
+                // app.UseMvc();
                 app.UseTelegramBotWebhook<EchoBot>(ConfigureBot());
-                // and make sure webhook is enabled
                 app.EnsureWebhookSet<EchoBot>();
             }
 
