@@ -15,7 +15,7 @@ See some **sample bots** in action:
 
 ## Getting Started
 
-This project targets .NET Standard 1.6 so make sure you have Visual Studio 2017 or [.NET Core](https://www.microsoft.com/net/download/core#/current) (v1.1 or above) installed.
+This project targets .NET Standard 1.6 so make sure you have Visual Studio 2017 or [.NET Core](https://www.microsoft.com/net/download/core#/current) (v2.2 or above) installed.
 
 Creating a bot with good architecture becomes very simple using this framework. Have a look at the [**Quick Start** wiki](./docs/wiki/quick-start/echo-bot.md) to make your fist _Echo Bot_.
 

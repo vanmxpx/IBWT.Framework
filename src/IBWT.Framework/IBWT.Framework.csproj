@@ -12,14 +12,14 @@
     
     <Title>IBWT Framework</Title>
     <Description>Telegram Api Bot Extentions</Description>
-    <Authors>Tsyhankov Mykyta, Poulad, TelegramBots</Authors>
+    <Authors>Tsyhankov Mykyta</Authors>
     <PackageTags>telegram;bot;chatbot;chat-framework;framework;netcore</PackageTags>
     <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
     <RepositoryType>git</RepositoryType>
     <PackageProjectUrl>https://github.com/vanmxpx/IBWT.Framework</PackageProjectUrl>
     <RepositoryUrl>https://github.com/vanmxpx/IBWT.Framework</RepositoryUrl>
-    <PackageIconUrl>https://raw.githubusercontent.com/TelegramBots/IBWT.Framework/master/docs/icon.png</PackageIconUrl>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/TelegramBots/IBWT.Framework/master/LICENSE</PackageLicenseUrl>
+    <PackageIconUrl>https://github.com/vanmxpx/master/docs/icon.png</PackageIconUrl>
+    <PackageLicense>https://github.com/vanmxpx/IBWT.Framework/master/LICENSE</PackageLicense>
   </PropertyGroup>
 
   <ItemGroup>
