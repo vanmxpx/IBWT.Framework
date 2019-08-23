@@ -30,7 +30,7 @@ namespace Quickstart.AspNetCore
         public void ConfigureServices(IServiceCollection services)
         {
             // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
-            services.AddConfigurationProvider(Configuration);
+            services.AddConfigurationProvider(Configuration, env);
 
             services.AddScoped<IDataRepository<Order>, OrderRepository>();
             services.AddScoped<IDataRepository<TGUser>, TGUserReposiroty>();

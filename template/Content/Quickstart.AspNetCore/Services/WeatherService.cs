@@ -1,4 +1,6 @@
-﻿using Newtonsoft.Json;
+﻿using Quickstart.AspNetCore.Configuration.Entities;
+using Microsoft.Extensions.Options;
+using Newtonsoft.Json;
 using System;
 using System.Net.Http;
 using System.Threading.Tasks;
@@ -8,12 +10,14 @@ namespace Quickstart.AspNetCore.Services
     class WeatherService : IWeatherService
     {
         private readonly HttpClient _client;
+        private readonly WeatherServiceConfig config;
 
-        public WeatherService()
+        public WeatherService(IOptions<WeatherServiceConfig> options)
         {
+            this.config = options.Value;
             _client = new HttpClient
             {
-                BaseAddress = new Uri("https://www.metaweather.com/api/")
+                BaseAddress = new Uri(config.BaseUrl)
             };
         }
 
@@ -24,7 +28,7 @@ namespace Quickstart.AspNetCore.Services
 
             DateTime today = DateTime.Today;
 
-            string json = await _client.GetStringAsync($"location/{location}/{today.Year}/{today.Month}/{today.Day}")
+            string json = await _client.GetStringAsync(string.Format(config.GetWeatherUrl, location, today.Year, today.Month, today.Day))
                 .ConfigureAwait(false);
 
             dynamic arr = JsonConvert.DeserializeObject(json);
@@ -40,7 +44,7 @@ namespace Quickstart.AspNetCore.Services
 
         private async Task<string> FindLocationIdAsync(float lat, float lon)
         {
-            string json = await _client.GetStringAsync($"location/search?lattlong={lat},{lon}")
+            string json = await _client.GetStringAsync(string.Format(config.GetLocationUrl, lat, lon))
                 .ConfigureAwait(false);
             dynamic arr = JsonConvert.DeserializeObject(json);
             return arr[0].woeid;

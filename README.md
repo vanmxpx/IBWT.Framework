@@ -8,10 +8,11 @@
 
 Simple framework for building Telegram bots 🤖. Ideal for running multiple chat bots inside a single ASP.NET Core app.
 
-See some **sample bots** in action:
+Publish **template** command:
 
-- Echo bot:   [`@Sample_Echoer_Bot`](https://t.me/sample_echoer_bot)
-- Games bot:  [`@CrazyCircleBot`](https://t.me/CrazyCircleBot)
+`dotnet pack .\template\Template.csprojs`
+
+`dotnet nuget push .\template\bin\Debug\IBWT.Framework.Template.1.0.0.nupkg -k <key> -s https://api.nuget.org/v3/index.json`
 
 ## Getting Started
 

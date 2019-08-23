@@ -1,4 +1,4 @@
-namespace IBWTWeather.Configuration.Entities
+namespace Quickstart.AspNetCore.Configuration.Entities
 {
     public class ConnectionStrings
     {

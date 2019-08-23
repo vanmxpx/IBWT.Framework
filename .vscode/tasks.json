@@ -14,6 +14,19 @@
             "problemMatcher": "$msCompile"
         },
         {
+            "label": "publish template to nuget",
+            "command": "dotnet",
+            "type": "process",
+            "args": [
+                "nuget", 
+                "push",
+                "${workspaceFolder}/template/bin/Debug/IBWT.Framework.Template.1.0.0.nupkg", 
+                "-k oy2gfs77ug3klgymq3zacf3ir7tmkwnetmk3vbwesukadi",
+                "-s https://api.nuget.org/v3/index.json"
+            ],
+            "problemMatcher": "$msCompile"
+        },
+        {
             "label": "publish",
             "command": "dotnet",
             "type": "process",
