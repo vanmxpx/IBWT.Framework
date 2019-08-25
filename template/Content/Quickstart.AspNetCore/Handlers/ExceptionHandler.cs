@@ -25,6 +25,9 @@ namespace Quickstart.AspNetCore.Handlers
             }
             catch (Exception e)
             {
+                Console.ForegroundColor = ConsoleColor.Red;
+                Console.WriteLine(e);
+                Console.ResetColor();
                 _logger.LogError(e, "An error occured in handling update {0}.", u.Id);
             }
         }
