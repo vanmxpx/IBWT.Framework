@@ -1,8 +1,9 @@
 using Quickstart.AspNetCore.Configuration.Entities;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Quickstart.AspNetCore.Configuration.Entities;
 using Quickstart.AspNetCore.Configuration.Entities.Logging;
+using Microsoft.AspNetCore.Hosting;
+using IBWT.Framework;
 
 namespace Quickstart.AspNetCore.Configuration
 {
