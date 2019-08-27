@@ -10,7 +10,7 @@ Simple framework for building Telegram bots 🤖. Ideal for running multiple cha
 
 Publish **template** command:
 
-`dotnet pack .\template\Template.csprojs`
+`dotnet pack .\template\Template.csproj`
 
 `dotnet nuget push .\template\bin\Debug\IBWT.Framework.Template.1.0.0.nupkg -k <key> -s https://api.nuget.org/v3/index.json`
 
