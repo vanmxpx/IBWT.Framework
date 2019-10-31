@@ -14,6 +14,7 @@ Publish **template** command:
 
 `dotnet nuget push .\template\bin\Debug\IBWT.Framework.Template.1.0.0.nupkg -k <key> -s https://api.nuget.org/v3/index.json`
 
+`dotnet nuget push .\IBWT.Framework\bin\Debug\IBWT.Framework.2.2.0.nupkg -k <key> -s https://api.nuget.org/v3/index.json`
 ## Getting Started
 
 This project targets .NET Standard 1.6 so make sure you have Visual Studio 2017 or [.NET Core](https://www.microsoft.com/net/download/core#/current) (v2.2 or above) installed.

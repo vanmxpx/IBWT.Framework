@@ -1,12 +1,14 @@
 ﻿using System;
 using IBWT.Framework;
 using IBWT.Framework.Abstractions;
+using IBWT.Framework.Scheduler;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Quickstart.AspNetCore.BackgroundTasks;
 using Quickstart.AspNetCore.Configuration;
 using Quickstart.AspNetCore.Data.Entities;
 using Quickstart.AspNetCore.Data.Repository;
@@ -63,6 +65,13 @@ namespace Quickstart.AspNetCore
                 .AddScoped<CallbackQueryHandler>();
 
             services.AddScoped<IWeatherService, WeatherService>();
+
+            services.AddSingleton<IScheduledTask, NotifyWeatherTask>();
+            services.AddScheduler((sender, args) =>
+            {
+                Console.Write(args.Exception.Message);
+                args.SetObserved();
+            });
         }
 
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
@@ -74,7 +83,7 @@ namespace Quickstart.AspNetCore
             {
                 app.UseDeveloperExceptionPage();
                 // app.UseMvc();
-                app.UseTelegramBotLongPolling<EchoBot>(ConfigureBot(), startAfter : TimeSpan.FromSeconds(2));
+                app.UseTelegramBotLongPolling<EchoBot>(ConfigureBot(), startAfter: TimeSpan.FromSeconds(2));
             }
             else
             {
@@ -99,7 +108,7 @@ namespace Quickstart.AspNetCore
                         .UseWhen(When.NewCommand, cmdBranch => cmdBranch
                             .UseCommand<StartCommand>("start")
                         )
-                        //.Use<NLP>()
+                    //.Use<NLP>()
                     )
                     .UseWhen<StickerHandler>(When.StickerMessage)
                     .UseWhen<WeatherReporter>(When.LocationMessage)
