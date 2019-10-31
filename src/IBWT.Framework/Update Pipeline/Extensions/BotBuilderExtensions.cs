@@ -53,5 +53,16 @@ namespace IBWT.Framework.Middleware
             builder.Use(new MapWhenMiddleware(predicate, branchDelegate));
             return builder;
         }
+
+        public static IBotBuilder UseCommand<TCommand>(
+            this IBotBuilder builder,
+            string command
+        )
+        where TCommand : CommandBase
+        => builder
+            .UseWhen(
+                ctx => ctx.Bot.CanHandleCommand(command, ctx.Update.Message),
+                botBuilder => botBuilder.Use<TCommand>()
+            );
     }
 }
