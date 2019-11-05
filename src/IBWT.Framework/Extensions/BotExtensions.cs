@@ -5,7 +5,7 @@ using IBWT.Framework.Abstractions;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 
-namespace IBWT.Framework
+namespace IBWT.Framework.Extentions
 {
     public static class BotExtensions
     {

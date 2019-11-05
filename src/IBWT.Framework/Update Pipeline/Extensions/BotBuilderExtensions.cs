@@ -1,6 +1,7 @@
 ﻿using System;
 using IBWT.Framework;
 using IBWT.Framework.Abstractions;
+using IBWT.Framework.Extentions;
 using IBWT.Framework.Middleware;
 
 namespace IBWT.Framework.Middleware
