@@ -14,6 +14,21 @@ namespace Microsoft.AspNetCore.Builder
     /// </summary>
     public static class LongPoolingMiddleware
     {
+        /// <summary>
+        /// Removes and disables webhooks for bot. Using default Telegram Bot Instance
+        /// </summary>
+        /// <param name="app">Instance of IApplicationBuilder</param>
+        /// <param name="botBuilder">Bot builder, implemented by framework user</param>
+        /// <param name="startAfter">Timeout for starting update manager</param>
+        /// <param name="cancellationToken">Standart threading cancellation token to stop process</param>
+        /// <returns>Instance of IApplicationBuilder</returns>
+        public static IApplicationBuilder UseTelegramBotLongPolling(this IApplicationBuilder app,
+            IBotBuilder botBuilder,
+            TimeSpan startAfter = default,
+            CancellationToken cancellationToken = default)
+        {
+            return UseTelegramBotLongPolling<TelegramBot>(app, botBuilder, startAfter, cancellationToken);
+        }
 
         /// <summary>
         /// Removes and disables webhooks for bot
@@ -34,12 +49,12 @@ namespace Microsoft.AspNetCore.Builder
                 startAfter = TimeSpan.FromSeconds(2);
             }
 
-            using(var scope = app.ApplicationServices.CreateScope())
+            using (var scope = app.ApplicationServices.CreateScope())
             {
                 var logger = scope.ServiceProvider.GetRequiredService<ILogger<IApplicationBuilder>>();
                 var updateManager = new UpdatePollingManager<TBot>(botBuilder, new BotServiceProvider(app));
 
-                Task.Run(async() =>
+                Task.Run(async () =>
                     {
                         await Task.Delay(startAfter, cancellationToken);
                         await updateManager.RunAsync(cancellationToken: cancellationToken);

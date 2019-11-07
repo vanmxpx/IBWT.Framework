@@ -22,6 +22,7 @@ namespace IBWT.Framework
             Update = u;
             Services = services;
             Items = new ConcurrentDictionary<string, object>();
+            
         }
     }
 }

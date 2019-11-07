@@ -2,6 +2,8 @@
 using System.IO;
 using System.Threading.Tasks;
 using IBWT.Framework.Abstractions;
+using IBWT.Framework.Services;
+using IBWT.Framework.Services.State;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
@@ -82,8 +84,14 @@ namespace IBWT.Framework.Middleware
                 var updateContext = new UpdateContext(bot, update, scope.ServiceProvider);
                 updateContext.Items.Add(nameof(HttpContext), context);
 
+
                 try
                 {
+                    // update telegram bot user state.
+                    var stateService = scope.ServiceProvider.GetService<IStateCacheService>();
+                    if(stateService != null) 
+                        stateService.CacheContext(updateContext);
+
                     await _updateDelegate(updateContext)
                         .ConfigureAwait(false);
                 }

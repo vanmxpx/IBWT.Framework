@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using IBWT.Framework.Abstractions;
 using Microsoft.AspNetCore.Http;
 using Telegram.Bot.Types.Enums;
@@ -8,6 +9,8 @@ namespace IBWT.Framework
     public static class When
     {
         public static bool Webhook(IUpdateContext context) => context.Items.ContainsKey(nameof(HttpContext));
+
+        public static Predicate<IUpdateContext> State(string command) => (IUpdateContext context) => context.Items.ContainsKey("State") && context.Items["State"].Equals(command);
 
         public static bool NewMessage(IUpdateContext context) =>
             context.Update.Message != null;

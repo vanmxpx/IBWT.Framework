@@ -11,6 +11,19 @@ namespace Microsoft.AspNetCore.Builder
     public static class WebhookMiddleware
     {
         /// <summary>
+        /// Add Telegram bot webhook handling functionality to the pipeline. Using default Telegram Bot Instance
+        /// </summary>
+        /// <param name="app">Instance of IApplicationBuilder</param>
+        /// <param name="botBuilder">Bot builder, implemented by framework user</param>
+        /// <returns>Instance of IApplicationBuilder</returns>
+        public static IApplicationBuilder UseTelegramBotWebhook(
+            this IApplicationBuilder app,
+            IBotBuilder botBuilder
+        )
+        {
+            return UseTelegramBotWebhook<TelegramBot>(app, botBuilder);
+        }
+        /// <summary>
         /// Add Telegram bot webhook handling functionality to the pipeline
         /// </summary>
         /// <typeparam name="TBot">Type of bot</typeparam>
@@ -34,9 +47,13 @@ namespace Microsoft.AspNetCore.Builder
             return app;
         }
 
+        public static IApplicationBuilder EnsureWebhookSet(this IApplicationBuilder app)
+        {
+            return EnsureWebhookSet<TelegramBot>(app);
+        }
         public static IApplicationBuilder EnsureWebhookSet<TBot>(this IApplicationBuilder app) where TBot : IBot
         {
-            using(var scope = app.ApplicationServices.CreateScope())
+            using (var scope = app.ApplicationServices.CreateScope())
             {
                 var logger = scope.ServiceProvider.GetRequiredService<ILogger<IApplicationBuilder>>();
                 var bot = scope.ServiceProvider.GetRequiredService<TBot>();
