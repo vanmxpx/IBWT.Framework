@@ -6,9 +6,9 @@ namespace IBWT.Framework.State.Providers
 {
     public class InMemoryStateProvider : IStateProvider
     {
-        private readonly ConcurrentDictionary<int, StateContext> _stateList = new ConcurrentDictionary<int, StateContext>();
+        private readonly ConcurrentDictionary<long, StateContext> _stateList = new ConcurrentDictionary<long, StateContext>();
 
-        public bool Clear(int id)
+        public bool Clear(long id)
         {
             return _stateList.Remove(id, out StateContext state);
         }
@@ -18,7 +18,7 @@ namespace IBWT.Framework.State.Providers
             _stateList.Clear();
         }
 
-        public StateContext GetState(int id) 
+        public StateContext GetState(long id) 
         {
             _stateList.TryGetValue(id, out StateContext state);
 

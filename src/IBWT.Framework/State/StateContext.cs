@@ -15,9 +15,9 @@ namespace IBWT.Framework.State
         public string TopCommand { get; private set; } 
 
         [JsonProperty(Required = Required.Always)]
-        public int Id { get; private set; }
+        public long Id { get; private set; }
 
-        public StateContext(int id)
+        public StateContext(long id)
         {
             Id = id;
             History.Push(Default);
