@@ -10,7 +10,8 @@ namespace IBWT.Framework
     {
         public static bool Webhook(IUpdateContext context) => context.Items.ContainsKey(nameof(HttpContext));
 
-        public static Predicate<IUpdateContext> State(string command) => (IUpdateContext context) => context.Items.ContainsKey("State") && context.Items["State"].Equals(command);
+        public static Predicate<IUpdateContext> State(string command) => 
+                (IUpdateContext context) => context.Items.ContainsKey("State") && context.Items["State"].Equals(command);
 
         public static bool NewMessage(IUpdateContext context) =>
             context.Update.Message != null;

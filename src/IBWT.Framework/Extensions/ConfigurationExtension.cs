@@ -29,7 +29,7 @@ namespace IBWT.Framework.Extentions
             return services.AddTransient<TelegramBot>();
         }
 
-        public static IServiceCollection AddStateCache<TStateCache>(
+        public static IServiceCollection AddBotStateCache<TStateCache>(
             this IServiceCollection services
         )
         where TStateCache: IStateProvider, new() 

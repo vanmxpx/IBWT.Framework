@@ -1,9 +1,11 @@
 using System.Threading;
 using System.Threading.Tasks;
 using IBWT.Framework.Abstractions;
+using IBWT.Framework.Services.State;
 using Telegram.Bot.Requests;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace IBWT.Framework
 {
@@ -53,6 +55,12 @@ namespace IBWT.Framework
                     using (var scopeProvider = _rootProvider.CreateScope())
                     {
                         var context = new UpdateContext(bot, update, scopeProvider);
+
+                        // update telegram bot user state.
+                        var stateService = scopeProvider.GetService<IStateCacheService>();
+                        if(stateService != null) 
+                            stateService.CacheContext(context);
+
                         // ToDo deep clone bot instance for each update
                         await _updateDelegate(context)
                             .ConfigureAwait(false);
