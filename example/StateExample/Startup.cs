@@ -107,16 +107,17 @@ namespace Quickstart.AspNetCore
             return new BotBuilder()
                 .Use<ExceptionHandler>()
                 .Use<UpdateLogger>()
-                .UseWhen(When.State("default"), cmdBranch => cmdBranch
-                    .UseCommand<StartCommand>("start")
+                //.UseCommand<StartCommand>("start")
+                .MapWhen(When.State("default"), cmdBranch => cmdBranch
+                    .Use<StartCommand>()
                 )
-                .UseWhen(When.State("test1"), defaultBranch => defaultBranch
+                .MapWhen(When.State("test1"), defaultBranch => defaultBranch
                     .UseWhen<Callback1QueryHandler>(When.CallbackQuery)
                 )
-                .UseWhen(When.State("test2"), defaultBranch => defaultBranch
+                .MapWhen(When.State("test2"), defaultBranch => defaultBranch
                     .UseWhen<Callback2QueryHandler>(When.CallbackQuery)
                 )
-                .UseWhen(When.State("test3"), defaultBranch => defaultBranch
+                .MapWhen(When.State("test3"), defaultBranch => defaultBranch
                     .UseWhen<Callback3QueryHandler>(When.CallbackQuery)
                 )
                 // .Use<CustomUpdateLogger>()

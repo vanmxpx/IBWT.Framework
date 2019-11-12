@@ -13,7 +13,7 @@ namespace IBWT.Framework.Services.State
 
         public void CacheContext(IUpdateContext updateContext)
         {
-            StateContext currentState = _stateCache.GetState(updateContext.Update.Message.Chat.Id);
+            StateContext currentState = _stateCache.GetState(updateContext.Update.GetChatId());
 
             if(updateContext.Update.CallbackQuery != null)
             {

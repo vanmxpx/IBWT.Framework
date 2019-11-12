@@ -40,6 +40,8 @@ namespace IBWT.Framework.State
 
         public string StepBack() 
         {
+            if(History.Count < 2)
+                return TopCommand;
             if(!History.TryPop(out string declinedCommand))
                 throw new InvalidOperationException($"Error on POP. Cannot step back in state object with Id = {Id} and history = {HistoryAsList()}");
             if(!History.TryPeek(out string topCommand))
