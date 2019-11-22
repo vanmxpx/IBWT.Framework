@@ -68,6 +68,7 @@ namespace Quickstart.AspNetCore
                 .AddScoped<WeatherReporter>()
                 .AddScoped<ExceptionHandler>()
                 .AddScoped<UpdateMembersList>()
+                .AddScoped<DefaultHandler>()
                 .AddScoped<Callback1QueryHandler>()
                  .AddScoped<Callback2QueryHandler>()
                   .AddScoped<Callback3QueryHandler>();
@@ -108,8 +109,11 @@ namespace Quickstart.AspNetCore
                 .Use<ExceptionHandler>()
                 .Use<UpdateLogger>()
                 //.UseCommand<StartCommand>("start")
-                .MapWhen(When.State("default"), cmdBranch => cmdBranch
-                    .Use<StartCommand>()
+                .MapWhen(When.State("default"), defaultBranch => defaultBranch
+                    .UseWhen(When.NewCommand, commandBranch => commandBranch
+                         .UseCommand<StartCommand>("start")
+                    )
+                    .Use<DefaultHandler>()
                 )
                 .MapWhen(When.State("test1"), defaultBranch => defaultBranch
                     .UseWhen<Callback1QueryHandler>(When.CallbackQuery)

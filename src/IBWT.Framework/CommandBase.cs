@@ -24,7 +24,7 @@ namespace IBWT.Framework.Abstractions
 
         public static string[] ParseCommandArgs(Message message)
         {
-            if (message is null)
+            if (message is null) 
                 throw new ArgumentNullException(nameof(message));
             if (message.Entities?.FirstOrDefault()?.Type != MessageEntityType.BotCommand)
                 throw new ArgumentException("Message is not a command.", nameof(message));

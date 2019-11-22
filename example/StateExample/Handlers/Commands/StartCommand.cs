@@ -40,23 +40,17 @@ namespace Quickstart.AspNetCore.Handlers
                     LastName = msg.Chat.LastName,
                     Nickname = msg.Chat.Username
                 });
-            }
+            }   
+
+
 
             await context.Bot.Client.SendTextMessageAsync(
                 msg.Chat,
-                context.Items["History"].ToString() + " and last item = " +  context.Items["State"].ToString(),
+                "Приветствую, это тестовое сообщение с задержкой",
                 ParseMode.Markdown,
-                replyToMessageId: msg.MessageId,
-                replyMarkup: new InlineKeyboardMarkup(
-                    new InlineKeyboardButton[]
-                    {
-                        InlineKeyboardButton.WithCallbackData("test1", "test1::")
-                    }
-                    
-                ),
                 cancellationToken: cancellationToken
             );
-
+            Thread.Sleep(2000);
             await next(context, cancellationToken);
         }
     }

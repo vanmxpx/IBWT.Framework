@@ -25,8 +25,6 @@ namespace Quickstart.AspNetCore.Handlers
                 ),
                 cancellationToken: cancellationToken
             );
-
-            await next(context, cancellationToken);
         }
     }
 }
