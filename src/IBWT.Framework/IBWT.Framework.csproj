@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>netcoreapp2.2</TargetFrameworks>
     <PackageId>IBWT.Framework</PackageId>
-    <PackageVersion>2.2.2</PackageVersion>
+    <PackageVersion>2.3.0</PackageVersion>
 
     <LangVersion>latest</LangVersion>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>

@@ -34,7 +34,8 @@ namespace IBWT.Framework.State
 
         public string StepForward(string command) 
         {
-            History.Push(command);
+            if(command != TopCommand)
+                History.Push(command);
             return TopCommand = command;
         }
 
