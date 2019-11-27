@@ -53,8 +53,10 @@ namespace Quickstart.AspNetCore
                 services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("RemoteDatabase")));
             }
+            // Save history of telegram user movements throw the bots' menus
+            services.AddBotStateCache<InMemoryStateProvider>();
 
-            services.AddTransient<EchoBot>()
+            services.AddTelegramBot()
                 .AddScoped<Texthandler>()
                 .AddScoped<StartCommand>()
                 .AddScoped<UpdateLogger>()
@@ -62,7 +64,10 @@ namespace Quickstart.AspNetCore
                 .AddScoped<WeatherReporter>()
                 .AddScoped<ExceptionHandler>()
                 .AddScoped<UpdateMembersList>()
-                .AddScoped<CallbackQueryHandler>();
+                .AddScoped<CallbackQueryHandler>()
+                .AddScoped<Menu1QueryHandler>()
+                .AddScoped<Menu2QueryHandler>()
+                .AddScoped<Menu3QueryHandler>();
 
             services.AddScoped<IWeatherService, WeatherService>();
 
@@ -83,13 +88,13 @@ namespace Quickstart.AspNetCore
             {
                 app.UseDeveloperExceptionPage();
                 // app.UseMvc();
-                app.UseTelegramBotLongPolling<EchoBot>(ConfigureBot(), startAfter: TimeSpan.FromSeconds(2));
+                app.UseTelegramBotLongPolling(ConfigureBot(), startAfter: TimeSpan.FromSeconds(2));
             }
             else
             {
                 // app.UseMvc();
-                app.UseTelegramBotWebhook<EchoBot>(ConfigureBot());
-                app.EnsureWebhookSet<EchoBot>();
+                app.UseTelegramBotWebhook(ConfigureBot());
+                app.EnsureWebhookSet();
             }
 
         }
@@ -99,10 +104,10 @@ namespace Quickstart.AspNetCore
             return new BotBuilder()
                 .Use<ExceptionHandler>()
                 .Use<UpdateLogger>()
-
                 // .Use<CustomUpdateLogger>()
                 .UseWhen<UpdateMembersList>(When.MembersChanged)
-                .UseWhen(When.NewMessage, msgBranch => msgBranch
+                .MapWhen(When.State("default"), cmdBranch => cmdBranch
+                    .UseWhen(When.NewMessage, msgBranch => msgBranch
                     .UseWhen(When.NewTextMessage, txtBranch => txtBranch
                         .Use<Texthandler>()
                         .UseWhen(When.NewCommand, cmdBranch => cmdBranch
@@ -113,7 +118,16 @@ namespace Quickstart.AspNetCore
                     .UseWhen<StickerHandler>(When.StickerMessage)
                     .UseWhen<WeatherReporter>(When.LocationMessage)
                 )
-                .UseWhen<CallbackQueryHandler>(When.CallbackQuery)
+                )
+                .MapWhen(When.State("menu1"), defaultBranch => defaultBranch
+                    .UseWhen<Menu1QueryHandler>(When.CallbackQuery)
+                )
+                .MapWhen(When.State("menu2"), defaultBranch => defaultBranch
+                    .UseWhen<Menu2QueryHandler>(When.CallbackQuery)
+                )
+                .MapWhen(When.State("menu3"), defaultBranch => defaultBranch
+                    .UseWhen<Menu3QueryHandler>(When.CallbackQuery)
+                )
 
             // .Use<UnhandledUpdateReporter>()
             ;
