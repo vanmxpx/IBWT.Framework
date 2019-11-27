@@ -8,16 +8,23 @@
 
 Simple framework for building Telegram bots 🤖. Ideal for running multiple chat bots inside a single ASP.NET Core app.
 
-Publish **template** command:
+Publish **template** and **framework** commands:
 
+Change version in .\template\Template.csproj
+Then run
 `dotnet pack .\template\Template.csproj`
+`dotnet nuget push .\template\bin\Debug\IBWT.Framework.Template.1.4.0.nupkg -k <key> -s https://api.nuget.org/v3/index.json`
 
-`dotnet nuget push .\template\bin\Debug\IBWT.Framework.Template.1.0.0.nupkg -k <key> -s https://api.nuget.org/v3/index.json`
-
+`dotnet build ".\src\IBWT.Framework\IBWT.Framework.csproj"`
 `dotnet nuget push .\IBWT.Framework\bin\Debug\IBWT.Framework.2.2.0.nupkg -k <key> -s https://api.nuget.org/v3/index.json`
+
+
+To install or update template you need to run command:
+`dotnet new -i IBWT.Framework.template`
+
 ## Getting Started
 
-This project targets .NET Standard 1.6 so make sure you have Visual Studio 2017 or [.NET Core](https://www.microsoft.com/net/download/core#/current) (v2.2 or above) installed.
+This project targets .NET Core 2.2 so make sure you have Visual Studio 2017 or Visual Studio Code with [.NET Core](https://www.microsoft.com/net/download/core#/current) (v2.2 or above) installed.
 
 Creating a bot with good architecture becomes very simple using this framework. Have a look at the [**Quick Start** wiki](./docs/wiki/quick-start/echo-bot.md) to make your fist _Echo Bot_.
 

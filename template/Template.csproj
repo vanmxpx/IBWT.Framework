@@ -3,7 +3,7 @@
     <PackageId>IBWT.Framework.Template</PackageId>
     <Description>Telegram Api Bot Extentions</Description>
     <Authors>Tsyhankov Mykyta</Authors>
-    <Version>1.3.0</Version>
+    <Version>1.4.0</Version>
 
     <PackageType>Template</PackageType>
     <PackProjectInputFile>$(MSBuildProjectFullPath)</PackProjectInputFile>

@@ -1,7 +1,10 @@
 ﻿using System;
 using IBWT.Framework;
 using IBWT.Framework.Abstractions;
+using IBWT.Framework.Extentions;
+using IBWT.Framework.Middleware;
 using IBWT.Framework.Scheduler;
+using IBWT.Framework.State.Providers;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
@@ -64,7 +67,6 @@ namespace Quickstart.AspNetCore
                 .AddScoped<WeatherReporter>()
                 .AddScoped<ExceptionHandler>()
                 .AddScoped<UpdateMembersList>()
-                .AddScoped<CallbackQueryHandler>()
                 .AddScoped<Menu1QueryHandler>()
                 .AddScoped<Menu2QueryHandler>()
                 .AddScoped<Menu3QueryHandler>();
@@ -109,10 +111,11 @@ namespace Quickstart.AspNetCore
                 .MapWhen(When.State("default"), cmdBranch => cmdBranch
                     .UseWhen(When.NewMessage, msgBranch => msgBranch
                     .UseWhen(When.NewTextMessage, txtBranch => txtBranch
-                        .Use<Texthandler>()
                         .UseWhen(When.NewCommand, cmdBranch => cmdBranch
                             .UseCommand<StartCommand>("start")
                         )
+                        .Use<DefaultHandler>()
+                        .Use<Texthandler>()
                     //.Use<NLP>()
                     )
                     .UseWhen<StickerHandler>(When.StickerMessage)
