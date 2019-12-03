@@ -89,7 +89,7 @@ namespace IBWT.Framework.Middleware
                 {
                     // update telegram bot user state.
                     var stateService = scope.ServiceProvider.GetService<IStateCacheService>();
-                    if(stateService != null) 
+                    if(stateService != null)
                         stateService.CacheContext(updateContext);
 
                     await _updateDelegate(updateContext)

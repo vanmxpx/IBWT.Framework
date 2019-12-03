@@ -20,7 +20,7 @@ namespace Quickstart.AspNetCore.Handlers
                 replyMarkup: new InlineKeyboardMarkup(
                     new InlineKeyboardButton[]
                     {
-                        InlineKeyboardButton.WithCallbackData("test1", "test1::")
+                        InlineKeyboardButton.WithCallbackData("menu1", "menu1::")
                     }
                     
                 ),

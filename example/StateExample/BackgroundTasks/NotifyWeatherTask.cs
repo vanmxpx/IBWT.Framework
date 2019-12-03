@@ -4,6 +4,7 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+using IBWT.Framework;
 using IBWT.Framework.Scheduler;
 using Quickstart.AspNetCore.Data.Entities;
 using Quickstart.AspNetCore.Data.Repository;
@@ -11,7 +12,6 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
-using IBWT.Framework;
 
 namespace Quickstart.AspNetCore.BackgroundTasks
 {

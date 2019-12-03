@@ -6,19 +6,27 @@ using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Quickstart.AspNetCore.Handlers
 {
-    public class Callback2QueryHandler : IUpdateHandler
+    public class Menu2QueryHandler : IUpdateHandler
     {
         public async Task HandleAsync(IUpdateContext context, UpdateDelegate next, CancellationToken cancellationToken)
         {
-            CallbackQuery cq = context.Update.CallbackQuery;
+            Message mess; 
+            if(context.Update.CallbackQuery != null)
+            {
+                mess = context.Update.CallbackQuery.Message;
+            } 
+            else
+            {
+                mess = context.Update.Message;
+            }
 
             await context.Bot.Client.SendTextMessageAsync(
-                cq.Message.Chat,
+                mess.Chat,
                 context.Items["History"].ToString() + " and last item = " +  context.Items["State"].ToString(),
                 replyMarkup: new InlineKeyboardMarkup(
                     new InlineKeyboardButton[]
                     {
-                        InlineKeyboardButton.WithCallbackData("test3", "test3::"),
+                        InlineKeyboardButton.WithCallbackData("menu3", "menu3::"),
                         InlineKeyboardButton.WithCallbackData("back", "back::")
                     }
                     

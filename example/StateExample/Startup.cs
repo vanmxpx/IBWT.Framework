@@ -43,8 +43,8 @@ namespace Quickstart.AspNetCore
             if (env.IsDevelopment())
             {
                 services.AddDbContext<ApplicationDbContext>(options =>
-                    // options.UseSqlServer(Configuration.GetConnectionString("LocalDatabase"))
-                    options.UseInMemoryDatabase("Test")
+                    //options.UseSqlServer(Configuration.GetConnectionString("LocalDatabase"))
+                    options.UseInMemoryDatabase("TestDB")
                 );
             }
             else
@@ -58,10 +58,11 @@ namespace Quickstart.AspNetCore
                 services.AddDbContext<ApplicationDbContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("RemoteDatabase")));
             }
+            // Save history of telegram user movements throw the bots' menus
+            services.AddBotStateCache<InMemoryStateProvider>(ConfigureBot());
 
-            services.AddBotStateCache<InMemoryStateProvider>();
             services.AddTelegramBot()
-                .AddScoped<Texthandler>()
+                .AddScoped<TextHandler>()
                 .AddScoped<StartCommand>()
                 .AddScoped<UpdateLogger>()
                 .AddScoped<StickerHandler>()
@@ -69,9 +70,10 @@ namespace Quickstart.AspNetCore
                 .AddScoped<ExceptionHandler>()
                 .AddScoped<UpdateMembersList>()
                 .AddScoped<DefaultHandler>()
-                .AddScoped<Callback1QueryHandler>()
-                 .AddScoped<Callback2QueryHandler>()
-                  .AddScoped<Callback3QueryHandler>();
+                .AddScoped<Menu1QueryHandler>()
+                .AddScoped<Menu2QueryHandler>()
+                .AddScoped<Menu3QueryHandler>()
+                .AddScoped<PaginationHandler>();
 
             services.AddScoped<IWeatherService, WeatherService>();
 
@@ -108,37 +110,41 @@ namespace Quickstart.AspNetCore
             return new BotBuilder()
                 .Use<ExceptionHandler>()
                 .Use<UpdateLogger>()
-                //.UseCommand<StartCommand>("start")
-                .MapWhen(When.State("default"), defaultBranch => defaultBranch
-                    .UseWhen(When.NewCommand, commandBranch => commandBranch
-                         .UseCommand<StartCommand>("start")
+                // .Use<CustomUpdateLogger>()
+                .UseWhen<UpdateMembersList>(When.MembersChanged)
+                .MapWhen(When.State("default"), cmdBranch => cmdBranch
+                    .UseWhen(When.NewMessage, msgBranch => msgBranch
+                        .UseWhen(When.NewTextMessage, txtBranch => txtBranch
+                            .UseWhen(When.NewCommand, cmdBranch => cmdBranch
+                                .UseCommand<StartCommand>("start")
+                            )
+                            //.Use<NLP>()
+                        )
+                        .MapWhen<StickerHandler>(When.StickerMessage)
+                        .MapWhen<WeatherReporter>(When.LocationMessage)
                     )
                     .Use<DefaultHandler>()
                 )
-                .MapWhen(When.State("test1"), defaultBranch => defaultBranch
-                    .UseWhen<Callback1QueryHandler>(When.CallbackQuery)
+                .MapWhen(When.State("menu1"), defaultBranch => defaultBranch
+                    .MapWhen<Menu1QueryHandler>(When.CallbackQuery)
                 )
-                .MapWhen(When.State("test2"), defaultBranch => defaultBranch
-                    .UseWhen<Callback2QueryHandler>(When.CallbackQuery)
+                .MapWhen(When.State("menu2"), defaultBranch => defaultBranch
+                    .Use<Menu2QueryHandler>()
                 )
-                .MapWhen(When.State("test3"), defaultBranch => defaultBranch
-                    .UseWhen<Callback3QueryHandler>(When.CallbackQuery)
+                .MapWhen(When.State("menu3"), defaultBranch => defaultBranch
+                    .MapWhen<Menu3QueryHandler>(When.CallbackQuery)
+                    .UseWhen(When.NewMessage, msgBranch => msgBranch
+                        .UseWhen(When.NewTextMessage, txtBranch => txtBranch
+                            .Use<TextHandler>()
+                            //.Use<NLP>()
+                        )
+                        .MapWhen<StickerHandler>(When.StickerMessage)
+                        .MapWhen<WeatherReporter>(When.LocationMessage)
+                    )   
                 )
-                // .Use<CustomUpdateLogger>()
-                // .UseWhen<UpdateMembersList>(When.MembersChanged)
-                // .UseWhen(When.NewMessage, msgBranch => msgBranch
-                //     .UseWhen(When.NewTextMessage, txtBranch => txtBranch
-                //         .Use<Texthandler>()
-                //         .UseWhen(When.NewCommand, cmdBranch => cmdBranch
-                //             .UseCommand<StartCommand>("start")
-                //         )
-                //     //.Use<NLP>()
-                //     )
-                //     .UseWhen<StickerHandler>(When.StickerMessage)
-                //     .UseWhen<WeatherReporter>(When.LocationMessage)
-                // )
-                // .UseWhen<CallbackQueryHandler>(When.CallbackQuery)
-
+                .MapWhen(When.State("pagination"), defaultBranch => defaultBranch
+                    .MapWhen<PaginationHandler>(When.CallbackQuery)
+                )
             // .Use<UnhandledUpdateReporter>()
             ;
         }

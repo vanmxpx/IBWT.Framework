@@ -22,7 +22,7 @@ namespace Quickstart.AspNetCore.BackgroundTasks
 
         public NotifyWeatherTask(
             ILogger<NotifyWeatherTask> logger,
-            EchoBot tgBot,
+            TelegramBot tgBot,
             IServiceProvider services
         )
         {

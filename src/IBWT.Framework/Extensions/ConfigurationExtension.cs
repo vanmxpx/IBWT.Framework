@@ -1,4 +1,5 @@
 ﻿
+using IBWT.Framework.Abstractions;
 using IBWT.Framework.Services.State;
 using IBWT.Framework.State.Providers;
 using Microsoft.Extensions.Configuration;
@@ -9,10 +10,12 @@ namespace IBWT.Framework.Extentions
 {
     public static class ConfigurationExtension
     {
+
         public static IServiceCollection AddTelegramBot(
             this IServiceCollection services
         )
         {
+            
             var sp = services.BuildServiceProvider();
             var config = sp.GetService<IConfiguration>();
             var env = sp.GetService<IHostingEnvironment>();
@@ -26,14 +29,15 @@ namespace IBWT.Framework.Extentions
                 services.Configure<BotOptions>(config.GetSection("BotOptions"));
             }
             
-            return services.AddTransient<TelegramBot>();
+            return  services.AddTransient<TelegramBot>();
         }
 
         public static IServiceCollection AddBotStateCache<TStateCache>(
-            this IServiceCollection services
+            this IServiceCollection services,
+            IBotBuilder botBuilder
         )
         where TStateCache: IStateProvider, new() 
-        => services.AddSingleton<IStateCacheService, StateCacheService<TStateCache>>();
+        => services.AddSingleton<IStateCacheService>(new StateCacheService<TStateCache>(botBuilder));
         
     }
 }
