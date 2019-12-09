@@ -1,10 +1,11 @@
 ﻿using Moq;
 using System;
-using Telegram.Bot.Framework;
-using Telegram.Bot.Framework.Abstractions;
+using IBWT.Framework;
+using IBWT.Framework.Abstractions;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Xunit;
+using IBWT.Framework.Extentions;
 
 namespace UnitTests.NetCore
 {

@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
     <PropertyGroup>
-        <TargetFrameworks>netcoreapp2.1</TargetFrameworks>
+        <TargetFrameworks>netcoreapp2.2</TargetFrameworks>
         <IsPackable>false</IsPackable>
         <LangVersion>latest</LangVersion>
     </PropertyGroup>
@@ -14,7 +14,7 @@
     </ItemGroup>
 
     <ItemGroup>
-        <ProjectReference Include="..\..\src\Telegram.Bot.Framework\Telegram.Bot.Framework.csproj" />
+        <ProjectReference Include="..\..\src\IBWT.Framework\IBWT.Framework.csproj" />
     </ItemGroup>
 
 </Project>

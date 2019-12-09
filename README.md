@@ -1,21 +1,30 @@
 ﻿# Telegram Bot Framework for .NET Core
 
- [![NuGet](https://img.shields.io/nuget/v/Telegram.Bot.Framework.svg?style=flat-square&label=Telegram.Bot.Framework&maxAge=3600)](https://www.nuget.org/packages/Telegram.Bot.Framework)
- [![Build Status](https://img.shields.io/travis/pouladpld/Telegram.Bot.Framework.svg?style=flat-square&maxAge=3600)](https://travis-ci.org/pouladpld/Telegram.Bot.Framework)
- [![License](https://img.shields.io/github/license/pouladpld/Telegram.Bot.Framework.svg?style=flat-square&maxAge=2592000)](https://raw.githubusercontent.com/pouladpld/Telegram.Bot.Framework/master/LICENSE)
+ [![NuGet](https://img.shields.io/nuget/v/IBWT.Framework.svg?style=flat-square&label=IBWT.Framework&maxAge=3600)](https://www.nuget.org/packages/IBWT.Framework)
+ [![Build Status](https://img.shields.io/travis/pouladpld/IBWT.Framework.svg?style=flat-square&maxAge=3600)](https://travis-ci.org/pouladpld/IBWT.Framework)
+ [![License](https://img.shields.io/github/license/pouladpld/IBWT.Framework.svg?style=flat-square&maxAge=2592000)](https://raw.githubusercontent.com/pouladpld/IBWT.Framework/master/LICENSE)
 
 <img src="./docs/icon.png" alt="Telegram Bot Framework Logo" width=200 height=200 />
 
 Simple framework for building Telegram bots 🤖. Ideal for running multiple chat bots inside a single ASP.NET Core app.
 
-See some **sample bots** in action:
+Publish **template** and **framework** commands:
 
-- Echo bot:   [`@Sample_Echoer_Bot`](https://t.me/sample_echoer_bot)
-- Games bot:  [`@CrazyCircleBot`](https://t.me/CrazyCircleBot)
+Change version in .\template\Template.csproj
+Then run
+`dotnet pack .\template\Template.csproj`
+`dotnet nuget push .\template\bin\Debug\IBWT.Framework.Template.1.4.0.nupkg -k <key> -s https://api.nuget.org/v3/index.json`
+
+`dotnet build ".\src\IBWT.Framework\IBWT.Framework.csproj"`
+`dotnet nuget push .\IBWT.Framework\bin\Debug\IBWT.Framework.2.2.0.nupkg -k <key> -s https://api.nuget.org/v3/index.json`
+
+
+To install or update template you need to run command:
+`dotnet new -i IBWT.Framework.template`
 
 ## Getting Started
 
-This project targets .NET Standard 1.6 so make sure you have Visual Studio 2017 or [.NET Core](https://www.microsoft.com/net/download/core#/current) (v1.1 or above) installed.
+This project targets .NET Core 2.2 so make sure you have Visual Studio 2017 or Visual Studio Code with [.NET Core](https://www.microsoft.com/net/download/core#/current) (v2.2 or above) installed.
 
 Creating a bot with good architecture becomes very simple using this framework. Have a look at the [**Quick Start** wiki](./docs/wiki/quick-start/echo-bot.md) to make your fist _Echo Bot_.
 

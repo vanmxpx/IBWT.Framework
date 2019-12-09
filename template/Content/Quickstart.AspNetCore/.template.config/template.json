@@ -1,0 +1,14 @@
+{
+    "$schema": "http://json.schemastore.org/template",
+    "author": "Tsyhankov Mykyta",
+    "sourceName": "Quickstart.AspNetCore",
+    "preferNameDirectory": true,
+    "classifications": [
+        "Telegram",
+        "Bot",
+        "Web"
+    ],
+    "identity": "IBWT.Framework",
+    "name": "IBWT Framework template",
+    "shortName": "ibwt"
+}
