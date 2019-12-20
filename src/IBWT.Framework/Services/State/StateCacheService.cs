@@ -42,7 +42,7 @@ namespace IBWT.Framework.Services.State
                 currentState.ApplyCommand(parts[0]);
 
                 if (parts.Length > 1)
-                    updateContext.Items.Add("Data", parts[1]);
+                    updateContext.Items.Add("Data", updateContext.Update.CallbackQuery.Data.Remove(0, parts[0].Length + 2));
             }
             updateContext.Items.Add("History", currentState.HistoryAsList());
             updateContext.Items.Add("State", currentState.TopCommand);

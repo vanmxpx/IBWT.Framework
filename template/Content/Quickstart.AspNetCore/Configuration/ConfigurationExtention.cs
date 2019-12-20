@@ -15,7 +15,7 @@ namespace Quickstart.AspNetCore.Configuration
                 .Configure<LoggingSettings>(config.GetSection("Logging"))
                 .Configure<WeatherServiceConfig>(config.GetSection("WeatherServiceConfig"));
 
-
+            //TODO: Move to framework
             if (env.IsDevelopment())
             {
                 services.Configure<BotOptions>(config.GetSection("BotConfigTest"));
