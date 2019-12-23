@@ -65,6 +65,7 @@ namespace Quickstart.AspNetCore
                 .AddScoped<TextHandler>()
                 .AddScoped<StartCommand>()
                 .AddScoped<UpdateLogger>()
+                .AddScoped<CustomUpdateLogger>()
                 .AddScoped<StickerHandler>()
                 .AddScoped<WeatherReporter>()
                 .AddScoped<ExceptionHandler>()
@@ -110,7 +111,7 @@ namespace Quickstart.AspNetCore
             return new BotBuilder()
                 .Use<ExceptionHandler>()
                 .Use<UpdateLogger>()
-                // .Use<CustomUpdateLogger>()
+                .Use<CustomUpdateLogger>()
                 .UseWhen<UpdateMembersList>(When.MembersChanged)
                 .MapWhen(When.State("default"), cmdBranch => cmdBranch
                     .UseWhen(When.NewMessage, msgBranch => msgBranch

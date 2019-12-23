@@ -20,6 +20,7 @@ namespace Quickstart.AspNetCore.Handlers
                 replyMarkup: new InlineKeyboardMarkup(
                     new InlineKeyboardButton[]
                     {
+                        InlineKeyboardButton.WithSwitchInlineQueryCurrentChat("switck inline", " "),
                         InlineKeyboardButton.WithCallbackData("menu1", "menu1::")
                     }
                     

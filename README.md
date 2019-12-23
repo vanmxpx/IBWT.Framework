@@ -18,6 +18,8 @@ Then run
 `dotnet build ".\src\IBWT.Framework\IBWT.Framework.csproj"`
 `dotnet nuget push .\IBWT.Framework\bin\Debug\IBWT.Framework.2.2.0.nupkg -k <key> -s https://api.nuget.org/v3/index.json`
 
+if you just pushed new version
+`dotnet nuget locals http-cache --clear`
 
 To install or update template you need to run command:
 `dotnet new -i IBWT.Framework.template`
