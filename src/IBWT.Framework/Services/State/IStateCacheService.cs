@@ -7,5 +7,6 @@ namespace IBWT.Framework.Services.State
     {
         void CacheContext(IUpdateContext updateContext);
         Task UpdateState(IUpdateContext updateContext, string state, string data = null);
+        Task InitUpdate(IUpdateContext updateContext);
     }
 }

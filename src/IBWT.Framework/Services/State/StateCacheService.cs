@@ -26,8 +26,12 @@ namespace IBWT.Framework.Services.State
             updateContext.Items["History"] = currentState.HistoryAsList();
             updateContext.Items["State"] = currentState.TopCommand;
             updateContext.Items["Data"] = data;
+        }
+
+        public async Task InitUpdate(IUpdateContext updateContext)
+        {
             await _updateDelegate(updateContext)
-                    .ConfigureAwait(false);
+                .ConfigureAwait(false);
         }
         public void CacheContext(IUpdateContext updateContext)
         {
