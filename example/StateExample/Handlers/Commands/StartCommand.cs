@@ -5,7 +5,6 @@ using Microsoft.Extensions.Logging;
 using Quickstart.AspNetCore.Data.Entities;
 using Quickstart.AspNetCore.Data.Repository;
 using Telegram.Bot.Types.Enums;
-using Telegram.Bot.Types.ReplyMarkups;
 
 namespace Quickstart.AspNetCore.Handlers
 {
@@ -30,7 +29,7 @@ namespace Quickstart.AspNetCore.Handlers
         )
         {
             var msg = context.Update.Message;
-            if (userRepository.Get(msg.Chat.Id) == null)
+            if (userRepository.Get(x => x.Id == msg.Chat.Id) == null)
             {
                 logger.LogInformation($"User created {0}, {1}", msg.Chat.Id, msg.Chat.Username);
                 userRepository.Add(new TGUser()
@@ -40,7 +39,7 @@ namespace Quickstart.AspNetCore.Handlers
                     LastName = msg.Chat.LastName,
                     Nickname = msg.Chat.Username
                 });
-            }   
+            }
 
 
 

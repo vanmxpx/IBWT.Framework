@@ -11,6 +11,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using Quickstart.AspNetCore.BackgroundTasks;
 using Quickstart.AspNetCore.Configuration;
 using Quickstart.AspNetCore.Data.Entities;
@@ -22,11 +23,11 @@ namespace Quickstart.AspNetCore
 {
     public class Startup
     {
-        private readonly IHostingEnvironment env;
+        private readonly IWebHostEnvironment env;
 
         private IConfiguration Configuration { get; }
 
-        public Startup(IConfiguration configuration, IHostingEnvironment env)
+        public Startup(IConfiguration configuration, IWebHostEnvironment env)
         {
             Configuration = configuration;
             this.env = env;
@@ -43,8 +44,7 @@ namespace Quickstart.AspNetCore
             if (env.IsDevelopment())
             {
                 services.AddDbContext<ApplicationDbContext>(options =>
-                    //options.UseSqlServer(Configuration.GetConnectionString("LocalDatabase"))
-                    options.UseInMemoryDatabase("TestDB")
+                    options.UseSqlServer(Configuration.GetConnectionString("LocalDatabase"))
                 );
             }
             else
@@ -85,7 +85,7 @@ namespace Quickstart.AspNetCore
             });
         }
 
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseHttpsRedirection();
             // app.UseStaticFiles();

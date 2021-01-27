@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netcoreapp2.2</TargetFrameworks>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
     <PackageId>IBWT.Framework</PackageId>
-    <PackageVersion>2.3.1</PackageVersion>
+    <PackageVersion>2.5.0</PackageVersion>
 
     <LangVersion>latest</LangVersion>
     <GenerateDocumentationFile>True</GenerateDocumentationFile>
@@ -25,9 +25,9 @@
   <ItemGroup>
     <PackageReference Include="Telegram.Bot" Version="15.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Hosting" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="2.2.0" />
-    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.11" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection" Version="3.1.11" />
+    <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" Version="3.1.11" />
   </ItemGroup>
 
 </Project>
