@@ -18,7 +18,7 @@ namespace IBWT.Framework.Extentions
             
             var sp = services.BuildServiceProvider();
             var config = sp.GetService<IConfiguration>();
-            var env = sp.GetService<IHostingEnvironment>();
+            var env = sp.GetService<IHostEnvironment>();
 
             if (env.IsDevelopment())
             {

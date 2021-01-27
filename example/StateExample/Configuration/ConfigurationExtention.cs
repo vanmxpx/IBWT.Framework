@@ -4,12 +4,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Quickstart.AspNetCore.Configuration.Entities.Logging;
 using Microsoft.AspNetCore.Hosting;
 using IBWT.Framework;
+using Microsoft.Extensions.Hosting;
 
 namespace Quickstart.AspNetCore.Configuration
 {
     public static class ConfigurationExtention
     {
-        public static void AddConfigurationProvider(this IServiceCollection services, IConfiguration config, IHostingEnvironment env)
+        public static void AddConfigurationProvider(this IServiceCollection services, IConfiguration config, IWebHostEnvironment env)
         {
             services.Configure<ConnectionStrings>(config.GetSection("ConnectionStrings"))
                 .Configure<LoggingSettings>(config.GetSection("Logging"))

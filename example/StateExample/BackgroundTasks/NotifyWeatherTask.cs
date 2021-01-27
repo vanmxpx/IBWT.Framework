@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
 using IBWT.Framework;
@@ -10,8 +9,6 @@ using Quickstart.AspNetCore.Data.Entities;
 using Quickstart.AspNetCore.Data.Repository;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace Quickstart.AspNetCore.BackgroundTasks
 {
@@ -33,7 +30,7 @@ namespace Quickstart.AspNetCore.BackgroundTasks
         {
             using(var scope = services.CreateScope())
             {
-                IDataRepository<TGUser> tgUserRepository = (IDataRepository<TGUser>) scope.ServiceProvider.GetService(typeof(IDataRepository<TGUser>));
+                IDataRepository<TGUser> tgUserRepository = (IDataRepository<TGUser>) scope.ServiceProvider.GetServices(typeof(IDataRepository<TGUser>));
 
                 List<TGUser> users = tgUserRepository.All().ToList();
 
