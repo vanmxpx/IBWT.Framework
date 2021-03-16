@@ -18,6 +18,7 @@ using Quickstart.AspNetCore.Data.Repository;
 using Quickstart.AspNetCore.Handlers;
 using Quickstart.AspNetCore.Services;
 using Microsoft.Extensions.Hosting;
+using Quickstart.AspNetCore.Data;
 
 namespace Quickstart.AspNetCore
 {
@@ -35,6 +36,7 @@ namespace Quickstart.AspNetCore
 
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddControllers();
             services.AddConfigurationProvider(Configuration, env);
 
             services.AddScoped<IDataRepository<Order>, OrderRepository>();
@@ -86,7 +88,7 @@ namespace Quickstart.AspNetCore
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             app.UseHttpsRedirection();
-
+            
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

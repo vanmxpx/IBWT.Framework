@@ -30,7 +30,7 @@ namespace Quickstart.AspNetCore.Handlers
         )
         {
             var msg = context.Update.Message;
-            if (userRepository.Get(msg.Chat.Id) == null)
+            if (userRepository.Get(x => x.Id == msg.Chat.Id) == null)
             {
                 logger.LogInformation($"User created {0}, {1}", msg.Chat.Id, msg.Chat.Username);
                 userRepository.Add(new TGUser()

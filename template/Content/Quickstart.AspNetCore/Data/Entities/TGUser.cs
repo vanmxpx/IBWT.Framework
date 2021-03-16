@@ -9,6 +9,7 @@ namespace Quickstart.AspNetCore.Data.Entities
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public long Id { get; set; }
+        public long? ChatId { get; set; }
         public string Nickname { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }

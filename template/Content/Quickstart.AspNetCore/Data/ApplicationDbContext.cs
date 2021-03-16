@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Quickstart.AspNetCore.Data.Entities;
 
-namespace Quickstart.AspNetCore
+namespace Quickstart.AspNetCore.Data
 {
     public class ApplicationDbContext : DbContext
     {
@@ -10,7 +10,7 @@ namespace Quickstart.AspNetCore
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
             : base(options)
         { 
-            Database.EnsureCreated();
+            Database.Migrate();
         }
     }
 }

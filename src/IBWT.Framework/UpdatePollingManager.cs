@@ -6,6 +6,7 @@ using Telegram.Bot.Requests;
 using Telegram.Bot.Types;
 using Telegram.Bot.Types.Enums;
 using Microsoft.Extensions.DependencyInjection;
+using System.Linq;
 
 namespace IBWT.Framework
 {
