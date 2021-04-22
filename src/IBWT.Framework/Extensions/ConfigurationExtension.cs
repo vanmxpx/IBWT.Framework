@@ -15,6 +15,13 @@ namespace IBWT.Framework.Extentions
             this IServiceCollection services
         )
         {
+            return  services.AddTransient<TelegramBot>();
+        }
+
+        public static IServiceCollection AddTelegramBotOptions(
+            this IServiceCollection services
+        )
+        {
             
             var sp = services.BuildServiceProvider();
             var config = sp.GetService<IConfiguration>();
@@ -29,7 +36,7 @@ namespace IBWT.Framework.Extentions
                 services.Configure<BotOptions>(config.GetSection("BotOptions"));
             }
             
-            return  services.AddTransient<TelegramBot>();
+            return  services;
         }
 
         public static IServiceCollection AddBotStateCache<TStateCache>(
